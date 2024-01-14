@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Module for FileStorage Class"""
+
 import json
 import os
 from models.base_model import BaseModel
@@ -9,8 +11,12 @@ from models.review import Review
 from models.state import State
 from models.city import City
 
+
 class FileStorage():
-    """serializes instances to a JSON file and deserializes JSON file to instances"""
+    """
+    serializes instances to a JSON file and
+    deserializes JSON file to instances
+    """
 
     __file_path = "file.json"
     __objects = {}
@@ -40,16 +46,10 @@ class FileStorage():
                 try:
                     dicty = json.load(file)
                     for key, value in dicty.items():
-                        #for obj in dicty.values():
                         c_name, ob_id, = key.split('.')
                         cls = eval(c_name)
                         objecty = cls(**value)
-                        #c_name = obj["__class__"]
-                        #del obj["__class__"]
-                        #self.new(eval(c_name)(**obj))
                         FileStorage.__objects[key] = objecty
 
                 except Exception:
                     return
-
-
