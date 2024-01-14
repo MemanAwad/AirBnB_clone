@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         """function checks for empty line"""
-        return
+        pass
 
     def do_create(self, line):
         """Creates a new instance of BaseModel, saves it and prints the id"""
