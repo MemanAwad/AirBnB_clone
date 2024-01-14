@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import json
+import os
 from models.base_model import BaseModel
 from models.user import User
 from models.amenity import Amenity
@@ -10,7 +11,7 @@ from models.city import City
 
 class FileStorage():
     """serializes instances to a JSON file and deserializes JSON file to instances"""
-    
+
     __file_path = "file.json"
     __objects = {}
 
@@ -34,11 +35,12 @@ class FileStorage():
     def reload(self):
         """deserializes the JSON file to __objects"""
 
-        with open(FileStorage.__file_path, "r") as file:
-            try:
-                dicty = json.load(file)
+        if os.path.isfile(FileStorage.__file_path):
+            with open(FileStorage.__file_path, "r") as file:
+                try:
+                    dicty = json.load(file)
                 for key, value in dicty.items():
-                #for obj in dicty.values():
+                    #for obj in dicty.values():
                     c_name, ob_id, = key.split('.')
                     cls = eval(c_name)
                     objecty = cls(**value)
@@ -47,7 +49,7 @@ class FileStorage():
                     #self.new(eval(c_name)(**obj))
                     FileStorage.__objects[key] = objecty
 
-            except Exception:
-                return
+                except Exception:
+                    return
 
-        
+
