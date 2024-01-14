@@ -35,7 +35,7 @@ class BaseModel:
         """ print: [<class name>] (<self.id>) <self.__dict__>"""
 
         return "[{}] ({}) {}".format(self.__class__.__name__,
-                self.id, (self.__dict__))
+                                     self.id, (self.__dict__))
 
     def save(self):
         """updates the public instance attribute
@@ -55,4 +55,3 @@ class BaseModel:
         dict_user["updated_at"] = self.updated_at.isoformat()
         dict_user['__class__'] = self.__class__.__name__
         return dict_user
-
