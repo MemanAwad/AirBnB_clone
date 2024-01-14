@@ -9,4 +9,4 @@ class Amenity(BaseModel):
     """
     Represent an Anemity
     """
-    name  = ""
+    name = ""
