@@ -39,15 +39,15 @@ class FileStorage():
             with open(FileStorage.__file_path, "r") as file:
                 try:
                     dicty = json.load(file)
-                for key, value in dicty.items():
-                    #for obj in dicty.values():
-                    c_name, ob_id, = key.split('.')
-                    cls = eval(c_name)
-                    objecty = cls(**value)
-                    #c_name = obj["__class__"]
-                    #del obj["__class__"]
-                    #self.new(eval(c_name)(**obj))
-                    FileStorage.__objects[key] = objecty
+                    for key, value in dicty.items():
+                        #for obj in dicty.values():
+                        c_name, ob_id, = key.split('.')
+                        cls = eval(c_name)
+                        objecty = cls(**value)
+                        #c_name = obj["__class__"]
+                        #del obj["__class__"]
+                        #self.new(eval(c_name)(**obj))
+                        FileStorage.__objects[key] = objecty
 
                 except Exception:
                     return
