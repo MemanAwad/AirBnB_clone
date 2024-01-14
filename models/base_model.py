@@ -14,12 +14,14 @@ class BaseModel():
 
         if kwargs:
             for key, value in kwargs.items():
-                if key != '__class__':
-                    if key == 'created_at' or key == 'updated_at':
-                        setattr(self, key,
-                                datetime.strptime(value, date_format))
-                    else:
-                        setattr(self, key, value)
+                if key == '__class__':
+                    continue
+                elif key == 'created_at' or key == 'updated_at':
+                    setattr(self, key,
+                            datetime.strptime(value, date_format))
+                else:
+                    setattr(self, key, value)
+
         models.storage.new(self)
 
     def __str__(self):
