@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""HBNB Command Module"""
+"""
+HBNB Command Module
+"""
 
 import cmd
 import json
@@ -14,6 +16,9 @@ from models.city import City
 
 
 class HBNBCommand(cmd.Cmd):
+    """
+    HBNB command console class
+    """
     prompt = "(hbnb) "
     classes = ["BaseModel", "User", "Amenity",
             "Place", "Review", "State", "City"]
