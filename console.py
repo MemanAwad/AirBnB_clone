@@ -1,13 +1,22 @@
 #!/usr/bin/python3
+"""HBNB Command Module"""
+
 import cmd
 import json
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.city import City
+
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     classes = ["BaseModel", "User", "Amenity",
-                         "Place", "Review", "State", "City"]
+            "Place", "Review", "State", "City"]
 
     def do_EOF(self, line):
         """Quit command to exit the program"""
