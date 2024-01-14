@@ -28,19 +28,24 @@ class FileStorage():
         for key in FileStorage.__objects.keys():
             serialize[key] = FileStorage.__objects[key].to_dict()
 
-        with open(FileStorage.__file_path, 'w', encoding="utf-8") as file:
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as file:
             json.dump(serialize, file)
 
     def reload(self):
         """deserializes the JSON file to __objects"""
 
-        with open(FileStorage.__file_path, 'r') as file:
+        with open(FileStorage.__file_path, "r") as file:
             try:
                 dicty = json.load(file)
-                for obj in dicty.values():
-                    c_name = obj["__class__"]
-                    del obj["__class__"]
-                    self.new(eval(c_name)(**obj))
+                for key, value in dicty.items():
+                #for obj in dicty.values():
+                    c_name, ob_id, = key.split('.')
+                    cls = eval(c_name)
+                    objecty = cls(**value)
+                    #c_name = obj["__class__"]
+                    #del obj["__class__"]
+                    #self.new(eval(c_name)(**obj))
+                    FileStorage.__objects[key] = objecty
 
             except Exception:
                 return
