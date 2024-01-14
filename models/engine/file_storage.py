@@ -1,5 +1,11 @@
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.city import City
 
 class FileStorage():
     """serializes instances to a JSON file and deserializes JSON file to instances"""
@@ -27,15 +33,15 @@ class FileStorage():
     def reload(self):
         """deserializes the JSON file to __objects"""
 
-        try:
-            with open(FileStorage.__file_path, 'r') as file:
+        with open(FileStorage.__file_path, 'r') as file:
+            try:
                 dicty = json.load(file)
                 for obj in dicty.values():
                     c_name = obj["__class__"]
                     del obj["__class__"]
                     self.new(eval(c_name)(**obj))
 
-        except FileNotFoundError:
-            return
+            except Exception:
+                return
 
         
