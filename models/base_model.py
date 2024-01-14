@@ -3,29 +3,31 @@ from datetime import datetime
 from uuid import uuid4
 import models
 
+
 class BaseModel():
 
     def __init__(self, *args, **kwargs):
-            
+        date_format = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        self.created_at = datetime.utcnow()
+        self.updated_at = datetime.utcnow()
 
         if kwargs:
-            date_format = "%Y-%m-%dT%H:%M:%S.%f"
             for key, value in kwargs.items():
                 if key != '__class__':
                     if key == 'created_at' or key == 'updated_at':
-                        setattr(self, key, datetime.strptime(value, date_format))
+                        setattr(self, key,
+                                datetime.strptime(value, date_format))
                     else:
-                        setattr(self, key,value)
-        else:
-            models.storage.new(self)
+                        setattr(self, key, value)
+        models.storage.new(self)
+
     def __str__(self):
-        #return "[" + "{}".format(type(self).__name__) + "]" + " (" + self.id + ") " + str(self.__dict__)
-        return "[{}] ({}) {}".format(type(self).__name__, self.id, str(self.__dict__)) 
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                self.id, (self.__dict__))
+
     def save(self):
-        self.updated_at = (datetime.now())
+        self.updated_at = (datetime.utcnow())
         models.storage.save()
 
     def to_dict(self):
