@@ -34,8 +34,8 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """function checks for empty line"""
         return
-    
-    def do_create(self,line):
+
+    def do_create(self, line):
         """Creates a new instance of BaseModel, saves it and prints the id"""
         arguments = line.split()
 
@@ -90,7 +90,10 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, line):
-        """Print the string representation of all instances or a specific class"""
+        """
+        Print the string representation of all
+        instances or a specific class
+        """
         objs = storage.all()
         arguments = line.split()
 
@@ -102,7 +105,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             for key, value in objs.items():
                 print(str(value))
-
 
     def do_update(self, line):
         """Update an instance by adding or updating an attribute"""
@@ -129,13 +131,14 @@ class HBNBCommand(cmd.Cmd):
                 obj = objs[key]
                 attr_name = arguments[2]
                 attr_value = arguments[3]
-                
+
                 try:
                     attr_value = eval(attr_value)
                 except Exception:
                     pass
                 setattr(obj, attr_name, attr_value)
             obj.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
