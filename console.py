@@ -55,7 +55,6 @@ class HBNBCommand(cmd.Cmd):
         based on the class name and id"""
 
         arguments = line.split()
-        print(arguments)
         if len(arguments) == 0:
             print("** class name missing **")
         elif arguments[0] not in self.classes:
