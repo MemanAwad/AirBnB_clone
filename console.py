@@ -5,6 +5,7 @@ HBNB Command Module
 
 import cmd
 import json
+import shlex
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
@@ -37,7 +38,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Creates a new instance of BaseModel, saves it and prints the id"""
-        arguments = line.split()
+        arguments = shlex.split(line)
 
         if len(arguments) == 0:
             print("** class name missing **")
@@ -54,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
         """Prints the string representation of an instance
         based on the class name and id"""
 
-        arguments = line.split()
+        arguments = shlex.split(line)
         if len(arguments) == 0:
             print("** class name missing **")
         elif arguments[0] not in self.classes:
@@ -72,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """Delete an instance based on the class name and id"""
-        arguments = line.split()
+        arguments = shlex.split(line)
         if len(arguments) == 0:
             print("** class name missing **")
         elif arguments[0] not in self.classes:
@@ -94,7 +95,7 @@ class HBNBCommand(cmd.Cmd):
         instances or a specific class
         """
         objs = storage.all()
-        arguments = line.split()
+        arguments = shlex.split(line)
 
         if len(arguments) == 0:
             for key, value in objs.items():
@@ -107,7 +108,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """Update an instance by adding or updating an attribute"""
-        arguments = line.split()
+        arguments = shlex.split(line)
 
         if len(arguments) == 0:
             print("** class name missing **")
