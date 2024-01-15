@@ -137,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
                 except Exception:
                     pass
                 setattr(obj, attr_name, attr_value)
-            obj.save()
+                obj.save()
 
 
 if __name__ == '__main__':
