@@ -20,6 +20,9 @@ class FileStorage():
 
     __file_path = "file.json"
     __objects = {}
+    __classes = ["BaseModel", "User", "Amenity",
+                 "Place", "Review", "State", "City"]
+
 
     def all(self):
         """returns the dictionary object"""
@@ -48,7 +51,9 @@ class FileStorage():
 
                 for obj in dicty.values():
                     c_name = obj["__class__"]
-                    self.new(eval(c_name)(**obj))
+                    if c_name in globals():
+                        cls = globals()[c_name]
+                        self.new(cls(**obj))
 
         except FileNotFoundError:
             return
