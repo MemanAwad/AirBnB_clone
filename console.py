@@ -44,10 +44,12 @@ class HBNBCommand(cmd.Cmd):
         elif arguments[0] not in self.__classes:
             print("** class doesn't exist **")
         else:
-            cls = globals()[arguments[0]]
-            new_cls = cls()
-            storage.save()
-            print(new_cls.id)
+            #cls = globals()[arguments[0]]
+            #new_cls = cls()
+            #storage.save()
+            new_instance = eval(arguments[0])()
+            new_instance.save()
+            print(new_instance.id)
 
     def do_show(self, line):
         """Prints the string representation of an instance
