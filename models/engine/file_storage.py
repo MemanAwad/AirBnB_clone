@@ -51,13 +51,9 @@ class FileStorage():
 
                 for obj in dicty.values():
                     c_name = obj["__class__"]
-                    if c_name == "User":
-                        self.new(User(**obj))
-                    else:
-                        self.new(eval(c_name)(**obj))
-                    #if c_name in globals():
-                     #   cls = globals()[c_name]
-                      #  self.new(cls(**obj))
+                    if c_name in globals():
+                        cls = globals()[c_name]
+                        self.new(cls(**obj))
 
         except FileNotFoundError:
             return
