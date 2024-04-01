@@ -20,8 +20,8 @@ class HBNBCommand(cmd.Cmd):
     HBNB command console class
     """
     prompt = "(hbnb) "
-    classes = ["BaseModel", "User", "Amenity",
-               "Place", "Review", "State", "City"]
+    __classes = ["BaseModel", "User", "Amenity",
+                 "Place", "Review", "State", "City"]
 
     def do_EOF(self, line):
         """Quit command to exit the program"""
@@ -41,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(arguments) == 0:
             print("** class name missing **")
-        elif arguments[0] not in self.classes:
+        elif arguments[0] not in self.__classes:
             print("** class doesn't exist **")
         else:
             new = eval(f"{arguments[0]}()")
@@ -57,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
         arguments = line.split()
         if len(arguments) == 0:
             print("** class name missing **")
-        elif arguments[0] not in self.classes:
+        elif arguments[0] not in self.__classes:
             print("** class doesn't exist **")
         elif len(arguments) < 2:
             print("** instance id missing **")
@@ -75,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
         arguments = line.split()
         if len(arguments) == 0:
             print("** class name missing **")
-        elif arguments[0] not in self.classes:
+        elif arguments[0] not in self.__classes:
             print("** class doesn't exist **")
         elif len(arguments) < 2:
             print("** instance id missing **")
@@ -93,17 +93,19 @@ class HBNBCommand(cmd.Cmd):
         Print the string representation of all
         instances or a specific class
         """
-        objs = storage.all()
-        arguments = line.split()
+        objj = []
+        arg = line.split()
 
-        if len(arguments) == 0:
-            for key, value in objs.items():
-                print(str(value))
-        elif arguments[0] not in self.classes:
+        if len(arg) > 0 and arg[0] not in self.__classes:
             print("** class doesn't exist **")
         else:
-            for key, value in objs.items():
-                print(str(value))
+            objj = []
+            for obj in storage.all().values():
+                if len(arg) > 0 and arg[0] == obj.__class__.__name__:
+                    objj.append(obj.__str__())
+                elif len(arg) == 0:
+                    objj.append(obj.__str__())
+            print(objj)
 
     def do_update(self, line):
         """Update an instance by adding or updating an attribute"""
@@ -111,7 +113,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(arguments) == 0:
             print("** class name missing **")
-        elif arguments[0] not in self.classes:
+        elif arguments[0] not in self.__classes:
             print("** class doesn't exist **")
         elif len(arguments) < 2:
             print("** instance id missing **")
