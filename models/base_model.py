@@ -15,9 +15,6 @@ class BaseModel:
         """Constructor"""
 
         date_format = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid4())
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
 
         if kwargs:
 
@@ -28,8 +25,11 @@ class BaseModel:
                             datetime.strptime(value, date_format))
                 else:
                     setattr(self, key, value)
-
-        models.storage.new(self)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
+            models.storage.new(self)
 
     def __str__(self):
         """ print: [<class name>] (<self.id>) <self.__dict__>"""
