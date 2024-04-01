@@ -23,7 +23,7 @@ class BaseModel:
 
             kwargs.pop("__class__", None)
             for key, value in kwargs.items():
-                elif key == 'created_at' or key == 'updated_at':
+                if key == 'created_at' or key == 'updated_at':
                     setattr(self, key,
                             datetime.strptime(value, date_format))
                 else:
