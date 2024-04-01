@@ -87,6 +87,7 @@ class HBNBCommand(cmd.Cmd):
             key = "{}.{}".format(arguments[0], arguments[1])
             if key in objs:
                 del objs[key]
+                storage.save()
             else:
                 print("** no instance found **")
 
