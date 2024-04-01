@@ -44,13 +44,10 @@ class HBNBCommand(cmd.Cmd):
         elif arguments[0] not in self.__classes:
             print("** class doesn't exist **")
         else:
-            print(eval(arguments[0])().id)
+            cls = globals()[arguments[0]]
+            new_cls = cls()
             storage.save()
-            #new = eval(f"{arguments[0]}()")
-            #my_obj = new.to_dict()
-            #with open("json_file", 'w') as file:
-            #    json.dump(my_obj, file)
-            #print(new.id)
+            print(new_cls.id)
 
     def do_show(self, line):
         """Prints the string representation of an instance
